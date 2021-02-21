@@ -50,7 +50,7 @@ variable "enable_autoscaling" {
   type        = bool
 }
 
-variable "enable_new_user_data" {
-  description = "If set to true, use the new User Data script"
-  type        = bool
+variable "server_text" {
+  description = "The server text to show on homepage"
+  type        = string
 }
