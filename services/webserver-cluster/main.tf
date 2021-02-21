@@ -212,7 +212,7 @@ resource "aws_cloudwatch_metric_alarm" "high_cpu_utilization" {
   period              = 300
   statistic           = "Average"
   threshold           = 90
-  unit                = "percent"
+  unit                = "Percent"
 }
 
 resource "aws_cloudwatch_metric_alarm" "low_cpu_credit_balance" {
