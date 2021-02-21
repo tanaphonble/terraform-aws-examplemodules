@@ -207,7 +207,7 @@ resource "aws_cloudwatch_metric_alarm" "high_cpu_utilization" {
     AutoscalingGroupName = aws_autoscaling_group.example.name
   }
 
-  comparison_operator = "GreaterThanTheshold"
+  comparison_operator = "GreaterThanThreshold"
   evaluation_periods  = 1
   period              = 300
   statistic           = "Average"
@@ -231,5 +231,5 @@ resource "aws_cloudwatch_metric_alarm" "low_cpu_credit_balance" {
   period              = 300
   statistic           = "Minimum"
   threshold           = 10
-  unit                = "Counte"
+  unit                = "Count"
 }
