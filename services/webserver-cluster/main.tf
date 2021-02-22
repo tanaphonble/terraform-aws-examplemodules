@@ -24,7 +24,7 @@ terraform {
   }
 }
 
-resource "aws_security_group" "instance" {
+resource "aws_security_group" "cluster_instance" {
   name = "${var.cluster_name}-instance"
 
   ingress {
@@ -88,7 +88,7 @@ resource "aws_autoscaling_group" "example" {
 }
 
 resource "aws_lb" "example" {
-  name               = "terraform-asg-example"
+  name               = var.cluster_name
   load_balancer_type = "application"
   subnets            = data.aws_subnet_ids.default.ids
   security_groups    = [aws_security_group.alb.id]
