@@ -48,11 +48,14 @@ resource "aws_launch_configuration" "example" {
 }
 
 resource "aws_autoscaling_group" "example" {
+  # Explicitly depend on the launch configuration's name so each time it's
+  # replaced, this ASG is also replaced
+  name = "${var.cluster_name}-${aws_launch_configuration.example.name}"
+
   launch_configuration = aws_launch_configuration.example.name
   vpc_zone_identifier  = data.aws_subnet_ids.default.ids
-
-  target_group_arns = [aws_lb_target_group.asg.arn]
-  health_check_type = "ELB"
+  target_group_arns    = [aws_lb_target_group.asg.arn]
+  health_check_type    = "ELB"
 
   min_size = var.min_size
   max_size = var.max_size
@@ -75,6 +78,10 @@ resource "aws_autoscaling_group" "example" {
       value               = tag.value
       propagate_at_launch = true
     }
+  }
+
+  lifecycle {
+    create_before_destroy = true
   }
 }
 
