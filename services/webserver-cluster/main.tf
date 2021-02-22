@@ -80,6 +80,8 @@ resource "aws_autoscaling_group" "example" {
     }
   }
 
+  min_elb_capacity = var.min_size
+
   lifecycle {
     create_before_destroy = true
   }
