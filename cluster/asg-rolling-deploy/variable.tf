@@ -33,11 +33,6 @@ variable "enable_autoscaling" {
   type        = bool
 }
 
-# ---------------------------------------------------------------------------------------------------------------------
-# OPTIONAL PARAMETERS
-# These parameters have reasonable defaults.
-# ---------------------------------------------------------------------------------------------------------------------
-
 variable "target_group_arns" {
   description = "The ARNs of ELB target groups in which to register Instances"
   type        = list(string)

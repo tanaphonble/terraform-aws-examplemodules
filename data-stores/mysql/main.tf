@@ -1,13 +1,3 @@
-provider "aws" {
-  region = "ap-southeast-1"
-}
-
-terraform {
-  backend "s3" {
-    key = "stage/data-stores/mysql/terraform.tfstate"
-  }
-}
-
 resource "aws_db_instance" "instance" {
   identifier_prefix         = "${var.cluster_name}-db"
   engine                    = "mysql"

@@ -8,7 +8,7 @@ locals {
 }
 
 resource "aws_launch_configuration" "configuration" {
-  image_id        = var.image_id
+  image_id        = var.ami
   instance_type   = var.instance_type
   security_groups = [aws_security_group.cluster_instance.id]
   user_data       = var.user_data
@@ -68,7 +68,7 @@ resource "aws_autoscaling_schedule" "scale_out_during_business_hours" {
   max_size               = 10
   desired_capacity       = 10
   recurrence             = "0 9 * * *"
-  autoscaling_group_name = aws_autoscaling_group.example.name
+  autoscaling_group_name = aws_autoscaling_group.group.name
 }
 
 resource "aws_autoscaling_schedule" "scale_in_at_night" {
@@ -79,10 +79,10 @@ resource "aws_autoscaling_schedule" "scale_in_at_night" {
   max_size               = 10
   desired_capacity       = 2
   recurrence             = "0 17 * * *"
-  autoscaling_group_name = aws_autoscaling_group.example.name
+  autoscaling_group_name = aws_autoscaling_group.group.name
 }
 
-resource "aws_security_group" "cluster-instance" {
+resource "aws_security_group" "cluster_instance" {
   name = "${var.cluster_name}-instance"
 }
 
@@ -104,7 +104,7 @@ resource "aws_cloudwatch_metric_alarm" "high_cpu_utilization" {
   metric_name = "CPUUtilization"
 
   dimensions = {
-    AutoScalingGroupName = aws_autoscaling_group.example.name
+    AutoScalingGroupName = aws_autoscaling_group.group.name
   }
 
   comparison_operator = "GreaterThanThreshold"
@@ -124,7 +124,7 @@ resource "aws_cloudwatch_metric_alarm" "low_cpu_credit_balance" {
   metric_name = "CPUCreditBalance"
 
   dimensions = {
-    AutoScalingGroupName = aws_autoscaling_group.example.name
+    AutoScalingGroupName = aws_autoscaling_group.group.name
   }
 
   comparison_operator = "LessThanThreshold"

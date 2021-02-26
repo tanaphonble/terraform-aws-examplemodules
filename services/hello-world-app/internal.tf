@@ -1,14 +1,5 @@
 locals {
   tg_interval = 15
-  tg_health_check = {
-    path                = "/"
-    protocol            = "HTTP"
-    matcher             = "200"
-    interval            = local.tg_interval
-    timeout             = 3
-    healthy_threshold   = 2
-    unhealthy_threshold = 2
-  }
 }
 
 data "aws_vpc" "default" {
@@ -32,7 +23,15 @@ resource "aws_lb_target_group" "asg" {
   protocol = "HTTP"
   vpc_id   = data.aws_vpc.default.id
 
-  health_check = local.tg_health_check
+  health_check {
+    path                = "/"
+    protocol            = "HTTP"
+    matcher             = "200"
+    interval            = local.tg_interval
+    timeout             = 3
+    healthy_threshold   = 2
+    unhealthy_threshold = 2
+  }
 }
 
 resource "aws_lb_listener_rule" "asg" {

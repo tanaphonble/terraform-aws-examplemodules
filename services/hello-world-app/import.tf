@@ -4,7 +4,7 @@ module "asg" {
 
   cluster_name  = "hello-world-${var.environment}"
   ami           = var.ami
-  user_data     = var.user_data
+  user_data     = data.template_file.user_data.rendered
   instance_type = var.instance_type
 
   min_size           = var.min_size
