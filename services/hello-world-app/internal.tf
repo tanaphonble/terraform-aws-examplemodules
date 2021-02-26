@@ -2,10 +2,6 @@ locals {
   tg_interval = 15
 }
 
-data "aws_vpc" "default" {
-  default = true
-}
-
 data "template_file" "user_data" {
   template = file("${path.module}/user-data.sh")
 
@@ -50,16 +46,3 @@ resource "aws_lb_listener_rule" "asg" {
   }
 }
 
-data "terraform_remote_state" "db" {
-  backend = "s3"
-
-  config = {
-    bucket = var.db_remote_state_bucket
-    key    = var.db_remote_state_key
-    region = "ap-southeast-1"
-  }
-}
-
-data "aws_subnet_ids" "default" {
-  vpc_id = data.aws_vpc.default.id
-}
