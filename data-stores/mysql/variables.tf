@@ -1,5 +1,5 @@
-variable "cluster_name" {
-  description = "The name of the cluster"
+variable "identifier_prefix" {
+  description = "The identifier prefix"
   type        = string
 }
 
@@ -13,8 +13,8 @@ variable "db_username" {
   type        = string
 }
 
-variable "db_pass_secret_id" {
-  description = "The password for the MySQL"
+variable "db_password" {
+  description = "The database password"
   type        = string
 }
 

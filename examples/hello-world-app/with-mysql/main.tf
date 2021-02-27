@@ -17,7 +17,7 @@ module "hello_world_app" {
 
   environment = var.environment
 
-  mysql_config = module.mysql
+  mysql_config = var.mysql_config
 
   instance_type      = "t2.micro"
   min_size           = 1
@@ -28,7 +28,9 @@ module "hello_world_app" {
 module "mysql" {
   source = "../../../data-stores/mysql"
 
-  db_name     = var.db_name
-  db_username = var.db_username
-  db_password = var.db_password
+  identifier_prefix = "terratest-db"
+  db_name           = var.db_name
+  db_username       = var.db_username
+  db_password       = var.db_password
+  db_instance_class = "db.t2.micro"
 }

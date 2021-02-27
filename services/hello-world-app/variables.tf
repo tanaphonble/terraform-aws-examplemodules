@@ -75,7 +75,7 @@ variable "subnet_ids" {
 
 variable "mysql_config" {
   description = "The config for the MySQL DB"
-  type = Object({
+  type = object({
     address = string
     port    = number
   })
