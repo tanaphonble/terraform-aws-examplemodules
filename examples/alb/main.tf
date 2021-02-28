@@ -14,7 +14,7 @@ provider "aws" {
 module "alb" {
   source = "../../networking/alb"
 
-  alb_name   = "alb-terratest"
+  alb_name   = var.alb_name
   subnet_ids = data.aws_subnet_ids.default.ids
 }
 
